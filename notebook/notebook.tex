@@ -1,0 +1,783 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Analise}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{basemap} \PY{k}{import} \PY{n}{Basemap} \PY{c+c1}{\PYZsh{} Import the Basemap toolkit}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} \PY{c+c1}{\PYZsh{} Import the Numpy package}
+        \PY{k+kn}{from} \PY{n+nn}{osgeo} \PY{k}{import} \PY{n}{gdal}
+        \PY{k+kn}{import} \PY{n+nn}{pprint}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{data} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{20180108}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{ciclo} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{00}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{grib} \PY{o}{=} \PY{n}{gdal}\PY{o}{.}\PY{n}{Open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../grib/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{/gfs.t00z.pgrb2.0p25.f003}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{ciclo}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{numero-de-bandas-layers}{%
+\subsection{Numero de Bandas / Layers}\label{numero-de-bandas-layers}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{number\PYZus{}of\PYZus{}bands} \PY{o}{=} \PY{n}{grib}\PY{o}{.}\PY{n}{RasterCount}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}bands}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+417
+
+    \end{Verbatim}
+
+    \hypertarget{nome-cada-layer}{%
+\subsection{Nome cada Layer}\label{nome-cada-layer}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{number\PYZus{}of\PYZus{}bands}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{n}{band} \PY{o}{=} \PY{n}{grib}\PY{o}{.}\PY{n}{GetRasterBand}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+            \PY{n}{metadata} \PY{o}{=} \PY{n}{band}\PY{o}{.}\PY{n}{GetMetadata}\PY{p}{(}\PY{p}{)}
+            \PY{n}{band\PYZus{}name} \PY{o}{=} \PY{n}{metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GRIB\PYZus{}COMMENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{band\PYZus{}description} \PY{o}{=} \PY{n}{band}\PY{o}{.}\PY{n}{GetDescription}\PY{p}{(}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ : }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZhy{} }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{band\PYZus{}name}\PY{p}{,}\PY{n}{band\PYZus{}description}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 : Visibility [m] 		- 0[-] SFC="Ground or water surface"
+2 : u-component of wind [m/s] 		- 0[-] RESERVED(220) (Reserved Local use)
+3 : v-component of wind [m/s] 		- 0[-] RESERVED(220) (Reserved Local use)
+4 : (prodType 0, cat 2, subcat 224) [-] [-] 		- 0[-] RESERVED(220) (Reserved Local use)
+5 : Wind speed (gust) [m/s] 		- 0[-] SFC="Ground or water surface"
+6 : Geopotential height [gpm] 		- 100[Pa] ISBL="Isobaric surface"
+7 : Temperature [C] 		- 100[Pa] ISBL="Isobaric surface"
+8 : Relative humidity [\%] 		- 100[Pa] ISBL="Isobaric surface"
+9 : u-component of wind [m/s] 		- 100[Pa] ISBL="Isobaric surface"
+10 : v-component of wind [m/s] 		- 100[Pa] ISBL="Isobaric surface"
+11 : Ozone Mixing Ratio [kg/kg] 		- 100[Pa] ISBL="Isobaric surface"
+12 : Geopotential height [gpm] 		- 200[Pa] ISBL="Isobaric surface"
+13 : Temperature [C] 		- 200[Pa] ISBL="Isobaric surface"
+14 : Relative humidity [\%] 		- 200[Pa] ISBL="Isobaric surface"
+15 : u-component of wind [m/s] 		- 200[Pa] ISBL="Isobaric surface"
+16 : v-component of wind [m/s] 		- 200[Pa] ISBL="Isobaric surface"
+17 : Ozone Mixing Ratio [kg/kg] 		- 200[Pa] ISBL="Isobaric surface"
+18 : Geopotential height [gpm] 		- 300[Pa] ISBL="Isobaric surface"
+19 : Temperature [C] 		- 300[Pa] ISBL="Isobaric surface"
+20 : Relative humidity [\%] 		- 300[Pa] ISBL="Isobaric surface"
+21 : u-component of wind [m/s] 		- 300[Pa] ISBL="Isobaric surface"
+22 : v-component of wind [m/s] 		- 300[Pa] ISBL="Isobaric surface"
+23 : Ozone Mixing Ratio [kg/kg] 		- 300[Pa] ISBL="Isobaric surface"
+24 : Geopotential height [gpm] 		- 500[Pa] ISBL="Isobaric surface"
+25 : Temperature [C] 		- 500[Pa] ISBL="Isobaric surface"
+26 : Relative humidity [\%] 		- 500[Pa] ISBL="Isobaric surface"
+27 : u-component of wind [m/s] 		- 500[Pa] ISBL="Isobaric surface"
+28 : v-component of wind [m/s] 		- 500[Pa] ISBL="Isobaric surface"
+29 : Ozone Mixing Ratio [kg/kg] 		- 500[Pa] ISBL="Isobaric surface"
+30 : Geopotential height [gpm] 		- 700[Pa] ISBL="Isobaric surface"
+31 : Temperature [C] 		- 700[Pa] ISBL="Isobaric surface"
+32 : Relative humidity [\%] 		- 700[Pa] ISBL="Isobaric surface"
+33 : u-component of wind [m/s] 		- 700[Pa] ISBL="Isobaric surface"
+34 : v-component of wind [m/s] 		- 700[Pa] ISBL="Isobaric surface"
+35 : Ozone Mixing Ratio [kg/kg] 		- 700[Pa] ISBL="Isobaric surface"
+36 : Geopotential height [gpm] 		- 1000[Pa] ISBL="Isobaric surface"
+37 : Temperature [C] 		- 1000[Pa] ISBL="Isobaric surface"
+38 : Relative humidity [\%] 		- 1000[Pa] ISBL="Isobaric surface"
+39 : u-component of wind [m/s] 		- 1000[Pa] ISBL="Isobaric surface"
+40 : v-component of wind [m/s] 		- 1000[Pa] ISBL="Isobaric surface"
+41 : Absolute vorticity [1/s] 		- 1000[Pa] ISBL="Isobaric surface"
+42 : Ozone Mixing Ratio [kg/kg] 		- 1000[Pa] ISBL="Isobaric surface"
+43 : Geopotential height [gpm] 		- 2000[Pa] ISBL="Isobaric surface"
+44 : Temperature [C] 		- 2000[Pa] ISBL="Isobaric surface"
+45 : Relative humidity [\%] 		- 2000[Pa] ISBL="Isobaric surface"
+46 : u-component of wind [m/s] 		- 2000[Pa] ISBL="Isobaric surface"
+47 : v-component of wind [m/s] 		- 2000[Pa] ISBL="Isobaric surface"
+48 : Absolute vorticity [1/s] 		- 2000[Pa] ISBL="Isobaric surface"
+49 : Ozone Mixing Ratio [kg/kg] 		- 2000[Pa] ISBL="Isobaric surface"
+50 : Geopotential height [gpm] 		- 3000[Pa] ISBL="Isobaric surface"
+51 : Temperature [C] 		- 3000[Pa] ISBL="Isobaric surface"
+52 : Relative humidity [\%] 		- 3000[Pa] ISBL="Isobaric surface"
+53 : u-component of wind [m/s] 		- 3000[Pa] ISBL="Isobaric surface"
+54 : v-component of wind [m/s] 		- 3000[Pa] ISBL="Isobaric surface"
+55 : Absolute vorticity [1/s] 		- 3000[Pa] ISBL="Isobaric surface"
+56 : Ozone Mixing Ratio [kg/kg] 		- 3000[Pa] ISBL="Isobaric surface"
+57 : Geopotential height [gpm] 		- 5000[Pa] ISBL="Isobaric surface"
+58 : Temperature [C] 		- 5000[Pa] ISBL="Isobaric surface"
+59 : Relative humidity [\%] 		- 5000[Pa] ISBL="Isobaric surface"
+60 : u-component of wind [m/s] 		- 5000[Pa] ISBL="Isobaric surface"
+61 : v-component of wind [m/s] 		- 5000[Pa] ISBL="Isobaric surface"
+62 : Absolute vorticity [1/s] 		- 5000[Pa] ISBL="Isobaric surface"
+63 : Ozone Mixing Ratio [kg/kg] 		- 5000[Pa] ISBL="Isobaric surface"
+64 : Geopotential height [gpm] 		- 7000[Pa] ISBL="Isobaric surface"
+65 : Temperature [C] 		- 7000[Pa] ISBL="Isobaric surface"
+66 : Relative humidity [\%] 		- 7000[Pa] ISBL="Isobaric surface"
+67 : u-component of wind [m/s] 		- 7000[Pa] ISBL="Isobaric surface"
+68 : v-component of wind [m/s] 		- 7000[Pa] ISBL="Isobaric surface"
+69 : Absolute vorticity [1/s] 		- 7000[Pa] ISBL="Isobaric surface"
+70 : Ozone Mixing Ratio [kg/kg] 		- 7000[Pa] ISBL="Isobaric surface"
+71 : Geopotential height [gpm] 		- 10000[Pa] ISBL="Isobaric surface"
+72 : Temperature [C] 		- 10000[Pa] ISBL="Isobaric surface"
+73 : Relative humidity [\%] 		- 10000[Pa] ISBL="Isobaric surface"
+74 : Vertical velocity (pressure) [Pa/s] 		- 10000[Pa] ISBL="Isobaric surface"
+75 : u-component of wind [m/s] 		- 10000[Pa] ISBL="Isobaric surface"
+76 : v-component of wind [m/s] 		- 10000[Pa] ISBL="Isobaric surface"
+77 : Absolute vorticity [1/s] 		- 10000[Pa] ISBL="Isobaric surface"
+78 : Cloud mixing ratio [kg/kg] 		- 10000[Pa] ISBL="Isobaric surface"
+79 : Icing severity [-] 		- 10000[Pa] ISBL="Isobaric surface"
+80 : Ozone Mixing Ratio [kg/kg] 		- 10000[Pa] ISBL="Isobaric surface"
+81 : Geopotential height [gpm] 		- 15000[Pa] ISBL="Isobaric surface"
+82 : Temperature [C] 		- 15000[Pa] ISBL="Isobaric surface"
+83 : Relative humidity [\%] 		- 15000[Pa] ISBL="Isobaric surface"
+84 : Vertical velocity (pressure) [Pa/s] 		- 15000[Pa] ISBL="Isobaric surface"
+85 : u-component of wind [m/s] 		- 15000[Pa] ISBL="Isobaric surface"
+86 : v-component of wind [m/s] 		- 15000[Pa] ISBL="Isobaric surface"
+87 : Absolute vorticity [1/s] 		- 15000[Pa] ISBL="Isobaric surface"
+88 : Cloud mixing ratio [kg/kg] 		- 15000[Pa] ISBL="Isobaric surface"
+89 : Icing severity [-] 		- 15000[Pa] ISBL="Isobaric surface"
+90 : Ozone Mixing Ratio [kg/kg] 		- 15000[Pa] ISBL="Isobaric surface"
+91 : Geopotential height [gpm] 		- 20000[Pa] ISBL="Isobaric surface"
+92 : Temperature [C] 		- 20000[Pa] ISBL="Isobaric surface"
+93 : Relative humidity [\%] 		- 20000[Pa] ISBL="Isobaric surface"
+94 : Vertical velocity (pressure) [Pa/s] 		- 20000[Pa] ISBL="Isobaric surface"
+95 : u-component of wind [m/s] 		- 20000[Pa] ISBL="Isobaric surface"
+96 : v-component of wind [m/s] 		- 20000[Pa] ISBL="Isobaric surface"
+97 : Absolute vorticity [1/s] 		- 20000[Pa] ISBL="Isobaric surface"
+98 : Cloud mixing ratio [kg/kg] 		- 20000[Pa] ISBL="Isobaric surface"
+99 : Icing severity [-] 		- 20000[Pa] ISBL="Isobaric surface"
+100 : Ozone Mixing Ratio [kg/kg] 		- 20000[Pa] ISBL="Isobaric surface"
+101 : Geopotential height [gpm] 		- 25000[Pa] ISBL="Isobaric surface"
+102 : Temperature [C] 		- 25000[Pa] ISBL="Isobaric surface"
+103 : Relative humidity [\%] 		- 25000[Pa] ISBL="Isobaric surface"
+104 : Vertical velocity (pressure) [Pa/s] 		- 25000[Pa] ISBL="Isobaric surface"
+105 : u-component of wind [m/s] 		- 25000[Pa] ISBL="Isobaric surface"
+106 : v-component of wind [m/s] 		- 25000[Pa] ISBL="Isobaric surface"
+107 : Absolute vorticity [1/s] 		- 25000[Pa] ISBL="Isobaric surface"
+108 : Cloud mixing ratio [kg/kg] 		- 25000[Pa] ISBL="Isobaric surface"
+109 : Icing severity [-] 		- 25000[Pa] ISBL="Isobaric surface"
+110 : Ozone Mixing Ratio [kg/kg] 		- 25000[Pa] ISBL="Isobaric surface"
+111 : Geopotential height [gpm] 		- 30000[Pa] ISBL="Isobaric surface"
+112 : Temperature [C] 		- 30000[Pa] ISBL="Isobaric surface"
+113 : Relative humidity [\%] 		- 30000[Pa] ISBL="Isobaric surface"
+114 : Vertical velocity (pressure) [Pa/s] 		- 30000[Pa] ISBL="Isobaric surface"
+115 : u-component of wind [m/s] 		- 30000[Pa] ISBL="Isobaric surface"
+116 : v-component of wind [m/s] 		- 30000[Pa] ISBL="Isobaric surface"
+117 : Absolute vorticity [1/s] 		- 30000[Pa] ISBL="Isobaric surface"
+118 : Cloud mixing ratio [kg/kg] 		- 30000[Pa] ISBL="Isobaric surface"
+119 : Icing severity [-] 		- 30000[Pa] ISBL="Isobaric surface"
+120 : Ozone Mixing Ratio [kg/kg] 		- 30000[Pa] ISBL="Isobaric surface"
+121 : Geopotential height [gpm] 		- 35000[Pa] ISBL="Isobaric surface"
+122 : Temperature [C] 		- 35000[Pa] ISBL="Isobaric surface"
+123 : Relative humidity [\%] 		- 35000[Pa] ISBL="Isobaric surface"
+124 : Vertical velocity (pressure) [Pa/s] 		- 35000[Pa] ISBL="Isobaric surface"
+125 : u-component of wind [m/s] 		- 35000[Pa] ISBL="Isobaric surface"
+126 : v-component of wind [m/s] 		- 35000[Pa] ISBL="Isobaric surface"
+127 : Absolute vorticity [1/s] 		- 35000[Pa] ISBL="Isobaric surface"
+128 : Cloud mixing ratio [kg/kg] 		- 35000[Pa] ISBL="Isobaric surface"
+129 : Icing severity [-] 		- 35000[Pa] ISBL="Isobaric surface"
+130 : Ozone Mixing Ratio [kg/kg] 		- 35000[Pa] ISBL="Isobaric surface"
+131 : Geopotential height [gpm] 		- 40000[Pa] ISBL="Isobaric surface"
+132 : Temperature [C] 		- 40000[Pa] ISBL="Isobaric surface"
+133 : Relative humidity [\%] 		- 40000[Pa] ISBL="Isobaric surface"
+134 : Vertical velocity (pressure) [Pa/s] 		- 40000[Pa] ISBL="Isobaric surface"
+135 : u-component of wind [m/s] 		- 40000[Pa] ISBL="Isobaric surface"
+136 : v-component of wind [m/s] 		- 40000[Pa] ISBL="Isobaric surface"
+137 : Absolute vorticity [1/s] 		- 40000[Pa] ISBL="Isobaric surface"
+138 : Cloud mixing ratio [kg/kg] 		- 40000[Pa] ISBL="Isobaric surface"
+139 : Icing severity [-] 		- 40000[Pa] ISBL="Isobaric surface"
+140 : Ozone Mixing Ratio [kg/kg] 		- 40000[Pa] ISBL="Isobaric surface"
+141 : Geopotential height [gpm] 		- 45000[Pa] ISBL="Isobaric surface"
+142 : Temperature [C] 		- 45000[Pa] ISBL="Isobaric surface"
+143 : Relative humidity [\%] 		- 45000[Pa] ISBL="Isobaric surface"
+144 : Vertical velocity (pressure) [Pa/s] 		- 45000[Pa] ISBL="Isobaric surface"
+145 : u-component of wind [m/s] 		- 45000[Pa] ISBL="Isobaric surface"
+146 : v-component of wind [m/s] 		- 45000[Pa] ISBL="Isobaric surface"
+147 : Absolute vorticity [1/s] 		- 45000[Pa] ISBL="Isobaric surface"
+148 : Cloud mixing ratio [kg/kg] 		- 45000[Pa] ISBL="Isobaric surface"
+149 : Icing severity [-] 		- 45000[Pa] ISBL="Isobaric surface"
+150 : Geopotential height [gpm] 		- 50000[Pa] ISBL="Isobaric surface"
+151 : Temperature [C] 		- 50000[Pa] ISBL="Isobaric surface"
+152 : Relative humidity [\%] 		- 50000[Pa] ISBL="Isobaric surface"
+153 : Vertical velocity (pressure) [Pa/s] 		- 50000[Pa] ISBL="Isobaric surface"
+154 : u-component of wind [m/s] 		- 50000[Pa] ISBL="Isobaric surface"
+155 : v-component of wind [m/s] 		- 50000[Pa] ISBL="Isobaric surface"
+156 : Absolute vorticity [1/s] 		- 50000[Pa] ISBL="Isobaric surface"
+157 : Cloud mixing ratio [kg/kg] 		- 50000[Pa] ISBL="Isobaric surface"
+158 : Icing severity [-] 		- 50000[Pa] ISBL="Isobaric surface"
+159 : Geopotential height [gpm] 		- 55000[Pa] ISBL="Isobaric surface"
+160 : Temperature [C] 		- 55000[Pa] ISBL="Isobaric surface"
+161 : Relative humidity [\%] 		- 55000[Pa] ISBL="Isobaric surface"
+162 : Vertical velocity (pressure) [Pa/s] 		- 55000[Pa] ISBL="Isobaric surface"
+163 : u-component of wind [m/s] 		- 55000[Pa] ISBL="Isobaric surface"
+164 : v-component of wind [m/s] 		- 55000[Pa] ISBL="Isobaric surface"
+165 : Absolute vorticity [1/s] 		- 55000[Pa] ISBL="Isobaric surface"
+166 : Cloud mixing ratio [kg/kg] 		- 55000[Pa] ISBL="Isobaric surface"
+167 : Icing severity [-] 		- 55000[Pa] ISBL="Isobaric surface"
+168 : Geopotential height [gpm] 		- 60000[Pa] ISBL="Isobaric surface"
+169 : Temperature [C] 		- 60000[Pa] ISBL="Isobaric surface"
+170 : Relative humidity [\%] 		- 60000[Pa] ISBL="Isobaric surface"
+171 : Vertical velocity (pressure) [Pa/s] 		- 60000[Pa] ISBL="Isobaric surface"
+172 : u-component of wind [m/s] 		- 60000[Pa] ISBL="Isobaric surface"
+173 : v-component of wind [m/s] 		- 60000[Pa] ISBL="Isobaric surface"
+174 : Absolute vorticity [1/s] 		- 60000[Pa] ISBL="Isobaric surface"
+175 : Cloud mixing ratio [kg/kg] 		- 60000[Pa] ISBL="Isobaric surface"
+176 : Icing severity [-] 		- 60000[Pa] ISBL="Isobaric surface"
+177 : Geopotential height [gpm] 		- 65000[Pa] ISBL="Isobaric surface"
+178 : Temperature [C] 		- 65000[Pa] ISBL="Isobaric surface"
+179 : Relative humidity [\%] 		- 65000[Pa] ISBL="Isobaric surface"
+180 : Vertical velocity (pressure) [Pa/s] 		- 65000[Pa] ISBL="Isobaric surface"
+181 : u-component of wind [m/s] 		- 65000[Pa] ISBL="Isobaric surface"
+182 : v-component of wind [m/s] 		- 65000[Pa] ISBL="Isobaric surface"
+183 : Absolute vorticity [1/s] 		- 65000[Pa] ISBL="Isobaric surface"
+184 : Cloud mixing ratio [kg/kg] 		- 65000[Pa] ISBL="Isobaric surface"
+185 : Icing severity [-] 		- 65000[Pa] ISBL="Isobaric surface"
+186 : Geopotential height [gpm] 		- 70000[Pa] ISBL="Isobaric surface"
+187 : Temperature [C] 		- 70000[Pa] ISBL="Isobaric surface"
+188 : Relative humidity [\%] 		- 70000[Pa] ISBL="Isobaric surface"
+189 : Vertical velocity (pressure) [Pa/s] 		- 70000[Pa] ISBL="Isobaric surface"
+190 : u-component of wind [m/s] 		- 70000[Pa] ISBL="Isobaric surface"
+191 : v-component of wind [m/s] 		- 70000[Pa] ISBL="Isobaric surface"
+192 : Absolute vorticity [1/s] 		- 70000[Pa] ISBL="Isobaric surface"
+193 : Cloud mixing ratio [kg/kg] 		- 70000[Pa] ISBL="Isobaric surface"
+194 : Icing severity [-] 		- 70000[Pa] ISBL="Isobaric surface"
+195 : Geopotential height [gpm] 		- 75000[Pa] ISBL="Isobaric surface"
+196 : Temperature [C] 		- 75000[Pa] ISBL="Isobaric surface"
+197 : Relative humidity [\%] 		- 75000[Pa] ISBL="Isobaric surface"
+198 : Vertical velocity (pressure) [Pa/s] 		- 75000[Pa] ISBL="Isobaric surface"
+199 : u-component of wind [m/s] 		- 75000[Pa] ISBL="Isobaric surface"
+200 : v-component of wind [m/s] 		- 75000[Pa] ISBL="Isobaric surface"
+201 : Absolute vorticity [1/s] 		- 75000[Pa] ISBL="Isobaric surface"
+202 : Cloud mixing ratio [kg/kg] 		- 75000[Pa] ISBL="Isobaric surface"
+203 : Icing severity [-] 		- 75000[Pa] ISBL="Isobaric surface"
+204 : Geopotential height [gpm] 		- 80000[Pa] ISBL="Isobaric surface"
+205 : Temperature [C] 		- 80000[Pa] ISBL="Isobaric surface"
+206 : Relative humidity [\%] 		- 80000[Pa] ISBL="Isobaric surface"
+207 : Vertical velocity (pressure) [Pa/s] 		- 80000[Pa] ISBL="Isobaric surface"
+208 : u-component of wind [m/s] 		- 80000[Pa] ISBL="Isobaric surface"
+209 : v-component of wind [m/s] 		- 80000[Pa] ISBL="Isobaric surface"
+210 : Absolute vorticity [1/s] 		- 80000[Pa] ISBL="Isobaric surface"
+211 : Cloud mixing ratio [kg/kg] 		- 80000[Pa] ISBL="Isobaric surface"
+212 : Icing severity [-] 		- 80000[Pa] ISBL="Isobaric surface"
+213 : Geopotential height [gpm] 		- 85000[Pa] ISBL="Isobaric surface"
+214 : Temperature [C] 		- 85000[Pa] ISBL="Isobaric surface"
+215 : Relative humidity [\%] 		- 85000[Pa] ISBL="Isobaric surface"
+216 : Vertical velocity (pressure) [Pa/s] 		- 85000[Pa] ISBL="Isobaric surface"
+217 : u-component of wind [m/s] 		- 85000[Pa] ISBL="Isobaric surface"
+218 : v-component of wind [m/s] 		- 85000[Pa] ISBL="Isobaric surface"
+219 : Absolute vorticity [1/s] 		- 85000[Pa] ISBL="Isobaric surface"
+220 : Cloud mixing ratio [kg/kg] 		- 85000[Pa] ISBL="Isobaric surface"
+221 : Icing severity [-] 		- 85000[Pa] ISBL="Isobaric surface"
+222 : Geopotential height [gpm] 		- 90000[Pa] ISBL="Isobaric surface"
+223 : Temperature [C] 		- 90000[Pa] ISBL="Isobaric surface"
+224 : Relative humidity [\%] 		- 90000[Pa] ISBL="Isobaric surface"
+225 : Vertical velocity (pressure) [Pa/s] 		- 90000[Pa] ISBL="Isobaric surface"
+226 : u-component of wind [m/s] 		- 90000[Pa] ISBL="Isobaric surface"
+227 : v-component of wind [m/s] 		- 90000[Pa] ISBL="Isobaric surface"
+228 : Absolute vorticity [1/s] 		- 90000[Pa] ISBL="Isobaric surface"
+229 : Cloud mixing ratio [kg/kg] 		- 90000[Pa] ISBL="Isobaric surface"
+230 : Icing severity [-] 		- 90000[Pa] ISBL="Isobaric surface"
+231 : Geopotential height [gpm] 		- 92500[Pa] ISBL="Isobaric surface"
+232 : Temperature [C] 		- 92500[Pa] ISBL="Isobaric surface"
+233 : Relative humidity [\%] 		- 92500[Pa] ISBL="Isobaric surface"
+234 : Vertical velocity (pressure) [Pa/s] 		- 92500[Pa] ISBL="Isobaric surface"
+235 : u-component of wind [m/s] 		- 92500[Pa] ISBL="Isobaric surface"
+236 : v-component of wind [m/s] 		- 92500[Pa] ISBL="Isobaric surface"
+237 : Absolute vorticity [1/s] 		- 92500[Pa] ISBL="Isobaric surface"
+238 : Cloud mixing ratio [kg/kg] 		- 92500[Pa] ISBL="Isobaric surface"
+239 : Geopotential height [gpm] 		- 95000[Pa] ISBL="Isobaric surface"
+240 : Temperature [C] 		- 95000[Pa] ISBL="Isobaric surface"
+241 : Relative humidity [\%] 		- 95000[Pa] ISBL="Isobaric surface"
+242 : Vertical velocity (pressure) [Pa/s] 		- 95000[Pa] ISBL="Isobaric surface"
+243 : u-component of wind [m/s] 		- 95000[Pa] ISBL="Isobaric surface"
+244 : v-component of wind [m/s] 		- 95000[Pa] ISBL="Isobaric surface"
+245 : Absolute vorticity [1/s] 		- 95000[Pa] ISBL="Isobaric surface"
+246 : Cloud mixing ratio [kg/kg] 		- 95000[Pa] ISBL="Isobaric surface"
+247 : Icing severity [-] 		- 95000[Pa] ISBL="Isobaric surface"
+248 : (prodType 2, cat 4, subcat 2) [-] [-] 		- 0[-] SFC="Ground or water surface"
+249 : Geopotential height [gpm] 		- 97500[Pa] ISBL="Isobaric surface"
+250 : Temperature [C] 		- 97500[Pa] ISBL="Isobaric surface"
+251 : Relative humidity [\%] 		- 97500[Pa] ISBL="Isobaric surface"
+252 : Vertical velocity (pressure) [Pa/s] 		- 97500[Pa] ISBL="Isobaric surface"
+253 : u-component of wind [m/s] 		- 97500[Pa] ISBL="Isobaric surface"
+254 : v-component of wind [m/s] 		- 97500[Pa] ISBL="Isobaric surface"
+255 : Absolute vorticity [1/s] 		- 97500[Pa] ISBL="Isobaric surface"
+256 : Cloud mixing ratio [kg/kg] 		- 97500[Pa] ISBL="Isobaric surface"
+257 : Temperature [C] 		- 100000[Pa] ISBL="Isobaric surface"
+258 : Relative humidity [\%] 		- 100000[Pa] ISBL="Isobaric surface"
+259 : Vertical velocity (pressure) [Pa/s] 		- 100000[Pa] ISBL="Isobaric surface"
+260 : u-component of wind [m/s] 		- 100000[Pa] ISBL="Isobaric surface"
+261 : v-component of wind [m/s] 		- 100000[Pa] ISBL="Isobaric surface"
+262 : Absolute vorticity [1/s] 		- 100000[Pa] ISBL="Isobaric surface"
+263 : Cloud mixing ratio [kg/kg] 		- 100000[Pa] ISBL="Isobaric surface"
+264 : Icing severity [-] 		- 100000[Pa] ISBL="Isobaric surface"
+265 : MSLP (Eta model reduction) [Pa] 		- 0[-] MSL="Mean sea level"
+266 : Geopotential height [gpm] 		- 100000[Pa] ISBL="Isobaric surface"
+267 : Pressure [Pa] 		- 0[-] SFC="Ground or water surface"
+268 : Geopotential height [gpm] 		- 0[-] SFC="Ground or water surface"
+269 : Temperature [C] 		- 0[-] SFC="Ground or water surface"
+270 : Soil temperature [C] 		- 0-0.1[m] DBLL="Depth below land surface"
+271 : Volumetric Soil Moisture Content [Fraction] 		- 0-0.1[m] DBLL="Depth below land surface"
+272 : Soil temperature [C] 		- 0.1-0.4[m] DBLL="Depth below land surface"
+273 : Volumetric Soil Moisture Content [Fraction] 		- 0.1-0.4[m] DBLL="Depth below land surface"
+274 : Soil temperature [C] 		- 0.4-1[m] DBLL="Depth below land surface"
+275 : Volumetric Soil Moisture Content [Fraction] 		- 0.4-1[m] DBLL="Depth below land surface"
+276 : Soil temperature [C] 		- 1-2[m] DBLL="Depth below land surface"
+277 : Volumetric Soil Moisture Content [Fraction] 		- 1-2[m] DBLL="Depth below land surface"
+278 : Water equivalent of accumulated snow depth [kg/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+279 : Snow depth [m] 		- 0[-] SFC="Ground or water surface"
+280 : Potential Evaporation Rate [W/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+281 : Temperature [C] 		- 2[m] HTGL="Specified height level above ground"
+282 : Specific humidity [kg/kg] 		- 2[m] HTGL="Specified height level above ground"
+283 : Dew point temperature [C] 		- 2[m] HTGL="Specified height level above ground"
+284 : Relative humidity [\%] 		- 2[m] HTGL="Specified height level above ground"
+285 : (prodType 0, cat 0, subcat 21) [-] [-] 		- 2[m] HTGL="Specified height level above ground"
+286 : Maximum temperature [C] 		- 2[m] HTGL="Specified height level above ground"
+287 : Minimum temperature [C] 		- 2[m] HTGL="Specified height level above ground"
+288 : u-component of wind [m/s] 		- 10[m] HTGL="Specified height level above ground"
+289 : v-component of wind [m/s] 		- 10[m] HTGL="Specified height level above ground"
+290 : Percent frozen precipitation [\%] 		- 0[-] SFC="Ground or water surface"
+291 : Convective Precipitation Rate [kg/(m\^{}2*s)] 		- 0[-] SFC="Ground or water surface"
+292 : Precipitation rate [kg/(m\^{}2 s)] 		- 0[-] SFC="Ground or water surface"
+293 : 03 hr Total precipitation [kg/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+294 : Convective precipitation [kg/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+295 : Water runoff [kg/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+296 : Categorical Snow [0=no; 1=yes] 		- 0[-] SFC="Ground or water surface"
+297 : Categorical Ice Pellets [0=no; 1=yes] 		- 0[-] SFC="Ground or water surface"
+298 : Categorical Freezing Rain [0=no; 1=yes] 		- 0[-] SFC="Ground or water surface"
+299 : Categorical Rain [0=no; 1=yes] 		- 0[-] SFC="Ground or water surface"
+300 : Latent heat net flux [W/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+301 : Sensible heat net flux [W/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+302 : Ground Heat Flux [W/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+303 : Momentum flux; u component [N/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+304 : Momentum flux; v component [N/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+305 : Zonal Flux of Gravity Wave Stress [N/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+306 : Meridional Flux of Gravity Wave Stress [N/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+307 : Wilting Point [Fraction] 		- 0[-] SFC="Ground or water surface"
+308 : Field Capacity [fraction] 		- 0[-] SFC="Ground or water surface"
+309 : SunShine duration [s] 		- 0[-] SFC="Ground or water surface"
+310 : Surface Lifted Index [C] 		- 0[-] SFC="Ground or water surface"
+311 : Convective available potential energy [J/kg] 		- 0[-] SFC="Ground or water surface"
+312 : Convective inhibition [J/kg] 		- 0[-] SFC="Ground or water surface"
+313 : Precipitable water [kg/(m\^{}2)] 		- 0[-] EATM="Entire atmosphere (considered as a single layer)"
+314 : Cloud water [kg/(m\^{}2)] 		- 0[-] EATM="Entire atmosphere (considered as a single layer)"
+315 : Relative humidity [\%] 		- 0[-] EATM="Entire atmosphere (considered as a single layer)"
+316 : Total ozone [Dobson] 		- 0[-] EATM="Entire atmosphere (considered as a single layer)"
+317 : Total cloud cover [\%] 		- 0[-] LCY="Low cloud level"
+318 : Total cloud cover [\%] 		- 0[-] MCY="Middle cloud level"
+319 : Total cloud cover [\%] 		- 0[-] HCY="High cloud level"
+320 : Total cloud cover [\%] 		- 0[-] RESERVED(10) (Reserved)
+321 : Pressure [Pa] 		- 0[-] CCBL="Convective cloud bottom level"
+322 : Pressure [Pa] 		- 0[-] LCBL="Low cloud bottom level"
+323 : Pressure [Pa] 		- 0[-] MCBL="Middle cloud bottom level"
+324 : Pressure [Pa] 		- 0[-] HCBL="High cloud bottom level"
+325 : Pressure [Pa] 		- 0[-] CCTL="Convective cloud top level"
+326 : Pressure [Pa] 		- 0[-] LCTL="Low cloud top level"
+327 : Pressure [Pa] 		- 0[-] MCTL="Middle cloud top level"
+328 : Pressure [Pa] 		- 0[-] HCTL="High cloud top level"
+329 : Temperature [C] 		- 0[-] LCTL="Low cloud top level"
+330 : Temperature [C] 		- 0[-] MCTL="Middle cloud top level"
+331 : Temperature [C] 		- 0[-] HCTL="High cloud top level"
+332 : Total cloud cover [\%] 		- 0[-] CCY="Convective cloud level"
+333 : Total cloud cover [\%] 		- 0[-] BCY="Boundary layer cloud level"
+334 : Cloud Work Function [J/kg] 		- 0[-] EATM="Entire atmosphere (considered as a single layer)"
+335 : Downward Short-Wave Rad. Flux [W/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+336 : Downward Long-Wave Rad. Flux [W/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+337 : Upward Short-Wave Rad. Flux [W/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+338 : Upward Long-Wave Rad. Flux [W/(m\^{}2)] 		- 0[-] SFC="Ground or water surface"
+339 : Upward Short-Wave Rad. Flux [W/(m\^{}2)] 		- 0[-] NTAT="Nominal top of atmosphere"
+340 : Upward Long-Wave Rad. Flux [W/(m\^{}2)] 		- 0[-] NTAT="Nominal top of atmosphere"
+341 : Storm relative helicity [J/kg] 		- 3000-0[m] HTGL="Specified height level above ground"
+342 : U-Component Storm Motion [m/s] 		- 6000-0[m] HTGL="Specified height level above ground"
+343 : V-Component Storm Motion [m/s] 		- 6000-0[m] HTGL="Specified height level above ground"
+344 : Pressure [Pa] 		- 0[-] TRO="Tropopause"
+345 : ICAO Standard Atmosphere Reference Height [m] 		- 0[-] TRO="Tropopause"
+346 : Geopotential height [gpm] 		- 0[-] TRO="Tropopause"
+347 : Temperature [C] 		- 0[-] TRO="Tropopause"
+348 : u-component of wind [m/s] 		- 0[-] TRO="Tropopause"
+349 : v-component of wind [m/s] 		- 0[-] TRO="Tropopause"
+350 : Vertical speed sheer [1/s] 		- 0[-] TRO="Tropopause"
+351 : Pressure [Pa] 		- 0[-] MWSL="Maximum wind level"
+352 : ICAO Standard Atmosphere Reference Height [m] 		- 0[-] MWSL="Maximum wind level"
+353 : Geopotential height [gpm] 		- 0[-] MWSL="Maximum wind level"
+354 : u-component of wind [m/s] 		- 0[-] MWSL="Maximum wind level"
+355 : v-component of wind [m/s] 		- 0[-] MWSL="Maximum wind level"
+356 : Temperature [C] 		- 0[-] MWSL="Maximum wind level"
+357 : Temperature [C] 		- 80[m] HTGL="Specified height level above ground"
+358 : Specific humidity [kg/kg] 		- 80[m] HTGL="Specified height level above ground"
+359 : Pressure [Pa] 		- 80[m] HTGL="Specified height level above ground"
+360 : u-component of wind [m/s] 		- 80[m] HTGL="Specified height level above ground"
+361 : v-component of wind [m/s] 		- 80[m] HTGL="Specified height level above ground"
+362 : Temperature [C] 		- 100[m] HTGL="Specified height level above ground"
+363 : u-component of wind [m/s] 		- 100[m] HTGL="Specified height level above ground"
+364 : v-component of wind [m/s] 		- 100[m] HTGL="Specified height level above ground"
+365 : Temperature [C] 		- 1829[m] GPML="Specific altitude above mean sea level"
+366 : u-component of wind [m/s] 		- 1829[m] GPML="Specific altitude above mean sea level"
+367 : v-component of wind [m/s] 		- 1829[m] GPML="Specific altitude above mean sea level"
+368 : Temperature [C] 		- 2743[m] GPML="Specific altitude above mean sea level"
+369 : u-component of wind [m/s] 		- 2743[m] GPML="Specific altitude above mean sea level"
+370 : v-component of wind [m/s] 		- 2743[m] GPML="Specific altitude above mean sea level"
+371 : Temperature [C] 		- 3658[m] GPML="Specific altitude above mean sea level"
+372 : u-component of wind [m/s] 		- 3658[m] GPML="Specific altitude above mean sea level"
+373 : v-component of wind [m/s] 		- 3658[m] GPML="Specific altitude above mean sea level"
+374 : Geopotential height [gpm] 		- 0[-] 0DEG="Level of 0 degree C isotherm"
+375 : Relative humidity [\%] 		- 0[-] 0DEG="Level of 0 degree C isotherm"
+376 : Geopotential height [gpm] 		- 0[-] HTFL="Highest tropospheric freezing level"
+377 : Relative humidity [\%] 		- 0[-] HTFL="Highest tropospheric freezing level"
+378 : Temperature [C] 		- 3000-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+379 : Relative humidity [\%] 		- 3000-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+380 : Specific humidity [kg/kg] 		- 3000-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+381 : u-component of wind [m/s] 		- 3000-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+382 : v-component of wind [m/s] 		- 3000-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+383 : Best (4 layer) Lifted Index [C] 		- 0[-] SFC="Ground or water surface"
+384 : Convective available potential energy [J/kg] 		- 18000-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+385 : Convective inhibition [J/kg] 		- 18000-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+386 : Planetary Boundary Layer Height [m] 		- 0[-] SFC="Ground or water surface"
+387 : Relative humidity [\%] 		- 0.33-1['sigma' value] SIGL="Sigma level"
+388 : Relative humidity [\%] 		- 0.44-1['sigma' value] SIGL="Sigma level"
+389 : Relative humidity [\%] 		- 0.72-0.94['sigma' value] SIGL="Sigma level"
+390 : Relative humidity [\%] 		- 0.44-0.72['sigma' value] SIGL="Sigma level"
+391 : Temperature [C] 		- 0.995['sigma' value] SIGL="Sigma level"
+392 : Potential temperature [C] 		- 0.995['sigma' value] SIGL="Sigma level"
+393 : Relative humidity [\%] 		- 0.995['sigma' value] SIGL="Sigma level"
+394 : u-component of wind [m/s] 		- 0.995['sigma' value] SIGL="Sigma level"
+395 : v-component of wind [m/s] 		- 0.995['sigma' value] SIGL="Sigma level"
+396 : Vertical velocity (pressure) [Pa/s] 		- 0.995['sigma' value] SIGL="Sigma level"
+397 : Convective available potential energy [J/kg] 		- 25500-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+398 : Convective inhibition [J/kg] 		- 25500-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+399 : Pressure of level from which parcel was lifted [Pa] 		- 25500-0[Pa] SPDL="Level at specified pressure difference from ground to level"
+400 : Land cover (1=land; 2=sea) [Proportion] 		- 0[-] SFC="Ground or water surface"
+401 : Ice cover [Proportion] 		- 0[-] SFC="Ground or water surface"
+402 : Albedo [\%] 		- 0[-] SFC="Ground or water surface"
+403 : u-component of wind [m/s] 		- 0.000002[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+404 : v-component of wind [m/s] 		- 0.000002[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+405 : Temperature [C] 		- 0.000002[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+406 : Geopotential height [gpm] 		- 0.000002[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+407 : Pressure [Pa] 		- 0.000002[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+408 : Vertical speed sheer [1/s] 		- 0.000002[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+409 : u-component of wind [m/s] 		- -2.147482[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+410 : v-component of wind [m/s] 		- -2.147482[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+411 : Temperature [C] 		- -2.147482[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+412 : Geopotential height [gpm] 		- -2.147482[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+413 : Pressure [Pa] 		- -2.147482[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+414 : Vertical speed sheer [1/s] 		- -2.147482[(K m\^{}2)/(kg s)] PVL="Potential vorticity surface"
+415 : Pressure reduced to MSL [Pa] 		- 0[-] MSL="Mean sea level"
+416 : 5-Wave Geopotential Height [gpm] 		- 50000[Pa] ISBL="Isobaric surface"
+417 : Land-sea coverage (nearest neighbor) [0=sea; 1=land] 		- 0[-] SFC="Ground or water surface"
+
+    \end{Verbatim}
+
+    \hypertarget{limites-do-dataset}{%
+\subsection{Limites do dataset}\label{limites-do-dataset}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ulx}\PY{p}{,} \PY{n}{xres}\PY{p}{,} \PY{n}{xskew}\PY{p}{,} \PY{n}{uly}\PY{p}{,} \PY{n}{yskew}\PY{p}{,} \PY{n}{yres}  \PY{o}{=} \PY{n}{grib}\PY{o}{.}\PY{n}{GetGeoTransform}\PY{p}{(}\PY{p}{)}
+        \PY{n}{lrx} \PY{o}{=} \PY{n}{ulx} \PY{o}{+} \PY{p}{(}\PY{n}{grib}\PY{o}{.}\PY{n}{RasterXSize} \PY{o}{*} \PY{n}{xres}\PY{p}{)}
+        \PY{n}{lry} \PY{o}{=} \PY{n}{uly} \PY{o}{+} \PY{p}{(}\PY{n}{grib}\PY{o}{.}\PY{n}{RasterYSize} \PY{o}{*} \PY{n}{yres}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ulx}\PY{p}{,} \PY{n}{uly}\PY{p}{,} \PY{n}{lrx}\PY{p}{,} \PY{n}{lry}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{metadados-do-layer-1}{%
+\subsection{Metadados do layer 1}\label{metadados-do-layer-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{band} \PY{o}{=} \PY{n}{grib}\PY{o}{.}\PY{n}{GetRasterBand}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{n}{band}\PY{o}{.}\PY{n}{GetMetadata}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{hora-utc}{%
+\subsection{Hora UTC}\label{hora-utc}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{horaUTC}\PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{band}\PY{o}{.}\PY{n}{GetMetadata}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GRIB\PYZus{}REF\PYZus{}TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sec UTC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{forecast} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{band}\PY{o}{.}\PY{n}{GetMetadata}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GRIB\PYZus{}FORECAST\PYZus{}SECONDS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sec}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{time}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y \PYZhy{} }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{time}\PY{o}{.}\PY{n}{gmtime}\PY{p}{(}\PY{n}{horaUTC}\PY{o}{+}\PY{n}{forecast}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
