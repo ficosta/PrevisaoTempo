@@ -116,3 +116,9 @@ dmypy.json
 
 # Gribs
 gfs*
+*.tiff
+*.tif
+*.jpg
+*.mp4
+*.png
+*.i
