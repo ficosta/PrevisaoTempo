@@ -118,7 +118,6 @@ dmypy.json
 gfs*
 *.tiff
 *.tif
-*.jpg
 *.mp4
 *.png
 *.i
